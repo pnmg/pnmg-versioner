@@ -103,6 +103,61 @@ describe PnmgVersionManager do
 
 
 
+  describe "#set_version" do 
+
+    describe "works with arrays" do 
+
+      it "of length 2 to 4" do
+        expect { pvm.version = [1] }.to raise_error(ArgumentError)
+        
+        pvm.version = [10,1123]
+        expect(PnmgVersionManager.new.version).to eq("10.1123")
+
+        pvm.version = [3,"7",10]
+        expect(PnmgVersionManager.new.version).to eq("3.7.10")
+
+        pvm.version = [4,89,"4115",112]
+        expect(PnmgVersionManager.new.version).to eq("4.89.4115.112")
+
+        expect { pvm.version = [0,1,3,1,0] }.to raise_error(ArgumentError)       
+      end
+
+
+      it "of integers or hex values" do 
+        pvm.version = [1, '34df'] 
+        expect(PnmgVersionManager.new.version).to eq("1.34df")
+
+        pvm.version = [2, 67, '3eef09'] 
+        expect(PnmgVersionManager.new.version).to eq("2.67.3eef09")
+
+        pvm.version = [1,2,3,'dd345ef21']
+        expect(PnmgVersionManager.new.version).to eq("1.2.3.dd345ef21")
+
+        expect { pvm.version = ["g", 1] }.to    raise_error(ArgumentError)
+        expect { pvm.version = [3, "t"] }.to    raise_error(ArgumentError)
+        expect { pvm.version = ["4", "j"] }.to  raise_error(ArgumentError)
+      end
+
+    end
+
+
+    describe "works with strings" do 
+
+      
+
+    end
+
+
+
+  end
+
+#        pvm.version = [5, "8", 7, "3"]
+#        expect(pvm.version).to eq("5.8.7.3")
+#        pvm.version = "2.3.2.10"
+#        expect(pvm.version).to eq("2.3.2.10")  
+#
+
+
 #    it "should default to 0.0.0.0 if no version yet" do
 #      remove_version_file
 #      pvm = PnmgVersionManager.new 
