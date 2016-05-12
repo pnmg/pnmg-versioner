@@ -111,13 +111,13 @@ describe PnmgVersionManager do
         expect { pvm.version = [1] }.to raise_error(ArgumentError)
         
         pvm.version = [10,1123]
-        expect(PnmgVersionManager.new.version).to eq("10.1123")
+        expect(PnmgVersionManager.version).to eq("10.1123")
 
         pvm.version = [3,"7",10]
-        expect(PnmgVersionManager.new.version).to eq("3.7.10")
+        expect(PnmgVersionManager.version).to eq("3.7.10")
 
         pvm.version = [4,89,"4115",112]
-        expect(PnmgVersionManager.new.version).to eq("4.89.4115.112")
+        expect(PnmgVersionManager.version).to eq("4.89.4115.112")
 
         expect { pvm.version = [0,1,3,1,0] }.to raise_error(ArgumentError)       
       end
@@ -125,13 +125,13 @@ describe PnmgVersionManager do
 
       it "of integers or hex values" do 
         pvm.version = [1, '34df'] 
-        expect(PnmgVersionManager.new.version).to eq("1.34df")
+        expect(PnmgVersionManager.version).to eq("1.34df")
 
         pvm.version = [2, 67, '3eef09'] 
-        expect(PnmgVersionManager.new.version).to eq("2.67.3eef09")
+        expect(PnmgVersionManager.version).to eq("2.67.3eef09")
 
         pvm.version = [1,2,3,'dd345ef21']
-        expect(PnmgVersionManager.new.version).to eq("1.2.3.dd345ef21")
+        expect(PnmgVersionManager.version).to eq("1.2.3.dd345ef21")
 
         expect { pvm.version = ["g", 1] }.to    raise_error(ArgumentError)
         expect { pvm.version = [3, "t"] }.to    raise_error(ArgumentError)
@@ -143,7 +143,29 @@ describe PnmgVersionManager do
 
     describe "works with strings" do 
 
-      
+      it "of length 2 to 4" do 
+        expect { pvm.version = "1" }.to raise_error(ArgumentError)
+
+        valid_versions = ["10.123", "1.13.123", "1.2.0.0"]
+        valid_versions.each do |ver|
+          pvm.version = ver 
+          expect(PnmgVersionManager.version).to eq(ver)
+        end
+
+        expect { pvm.version = "1.2.3.4.5" }.to raise_error(ArgumentError)
+      end
+
+
+      it "of integers and hex values" do 
+        valid_versions = ["1.34ade3", "3ef456a.1.3", "1.2.3.234234ef"]
+        valid_versions.each do |ver|
+          pvm.version = ver 
+          expect(PnmgVersionManager.version).to eq(ver) 
+        end
+
+        expect { pvm.version = "string"}.to   raise_error(ArgumentError)
+        expect { pvm.version = "1.2.str"}.to  raise_error(ArgumentError)
+      end
 
     end
 

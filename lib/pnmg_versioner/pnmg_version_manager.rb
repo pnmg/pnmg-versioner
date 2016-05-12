@@ -12,6 +12,10 @@ class PnmgVersionManager
   attr_reader   :version_file
 
 
+  ############################################################
+  #   PUBLIC CLASS METHODS
+
+
   # Class initializer
   #
   def initialize 
@@ -20,6 +24,16 @@ class PnmgVersionManager
     @app_version = defined?(VERSION) ? VERSION.split('.') : DEFAULT_VERSION
   end
 
+
+
+  # Retrieve the current version 
+  #
+  # @return   [String]    Current app version 
+  # 
+  def self.version 
+    pvm = new 
+    pvm.version 
+  end
 
 
   ############################################################
@@ -48,7 +62,7 @@ class PnmgVersionManager
   # Remove the file containing version information
   #
   def remove_version_file
-    File.delete(@version_file) if File.file?(@version_file)
+    File.delete(@version_file) if version_file_exists? 
   end
 
 
@@ -85,9 +99,13 @@ class PnmgVersionManager
   # @raises [ArgumentError]           If the version parameter is formatted badly
   #
   def version=(value)
-    validate_value_parameter(value)
+    value = validate_value_parameter(value)
     @app_version = value
-    update_version_file
+
+    # Save version and update environment constant
+    version_string = "VERSION = '"+version+"'\n"
+    File.open(@version_file, 'w') { |f| f.print(version_string) }
+    reload_version_file
   end
 
 
@@ -111,46 +129,57 @@ class PnmgVersionManager
   private 
 
 
-
+  # Creates the version file with the default version if the file doesn't exist
+  #
   def test_and_initialize_version_file
-    create_version_file unless File.file?(@version_file)
-    version = "0.0.0"
+    unless version_file_exists?
+      create_version_file
+      version = DEFAULT_VERSION
+    end
   end
 
 
 
-
-
-
-  def version_file_exists? 
-    File.file?(@version_file)
-  end
-
-
+  # Validates parameters provided to an update call
+  #
+  # @param  values  [String, Array] The Parameters provided
+  # @return [Array] Valid parameters in array format
+  #
+  # @raise  [ArgumentError]   If there are not 2-4 version parts or if a 
+  #         version part is not either numeric or hexidecimal.
+  #
   def validate_value_parameter(values)
     
     # If values isn't an array, convert to array by spliting on '.'
-    values = values.split('.') unless values.kind_of? Array.new
+    values = values.split('.') unless values.kind_of? Array
     
+    # Validate there are the correct number of parts to the version
     unless values.length.between?(2, 4)
       raise ArgumentError, "If the value is an array, it must be between 2 and 4 elements long."
     end
 
-    # Validate each item in version array is a 
+    # Validate each item in version array is a string or hex value
     values.each do |value|
       unless (hex_string?(value) || intish_string?(value))
         raise ArgumentError, "#{value} must be either an integer or a hex value." 
       end
     end
 
+    values 
   end
 
 
-  def update_version_file
-    version_string = "VERSION = '"+version+"'\n"
-    File.open(@version_file, 'w') { |f| f.print(version_string) }
-    reload_version_file
+
+  # Checks if the version file exists or not
+  #
+  # @return   [Boolean]   If the version file exists
+  #
+  def version_file_exists? 
+    File.file?(@version_file)
   end
+
+
+
 
 
 
