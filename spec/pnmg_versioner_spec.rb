@@ -174,6 +174,47 @@ describe PNMG::Versioner do
 
 
 
+  describe "#bump_version" do 
+
+    it "works on integers" do
+
+      pvm.version = "1.2.3.4"
+
+      pvm.bump_version(:major)
+      expect(pvm.version).to eq("2.2.3.4")
+
+      pvm.bump_version(:minor)
+      expect(pvm.version).to eq("2.3.3.4")
+
+      pvm.bump_version(:patch)
+      expect(pvm.version).to eq("2.3.4.4")
+
+      pvm.bump_version(:build)
+      expect(pvm.version).to eq("2.3.4.5")
+
+      expect { pvm.bump_version(:not_valid) }.to raise_error(ArgumentError)
+
+      # Try skipping a version segment
+
+      pvm.version = "1.0"
+
+      pvm.bump_version(:build)
+      expect(pvm.version).to eq("1.0.0.1")
+
+    end
+
+
+    it "works on hex" do 
+
+      pvm.version = "1.2.32bef"
+      pvm.bump_version(:patch)
+      expect(pvm.version).to eq("1.2.32bf0")
+
+    end
+
+  end
+
+
 
 
 #        pvm.version = [5, "8", 7, "3"]

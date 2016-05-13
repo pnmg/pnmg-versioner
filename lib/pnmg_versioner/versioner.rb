@@ -45,6 +45,29 @@ module PNMG
     #   PUBLIC METHODS
 
 
+    def bump_version(segment)
+      unless PNMG::Versioner::VERSION_SEGMENTS.keys.include? segment
+        raise ArgumentError, "Segment #{segment.to_s} is not a valid segment"
+      end
+
+      v = @app_version.dup 
+
+      if hex_string?(v[VERSION_SEGMENTS[segment]])
+        # Convert to int, add 1, convert back to hex
+        v[VERSION_SEGMENTS[segment]] = (v[VERSION_SEGMENTS[segment]].hex + 1).to_s(16)
+      else 
+        # Convert to int, add 1
+        v[VERSION_SEGMENTS[segment]] = v[VERSION_SEGMENTS[segment]].to_i + 1
+      end
+
+      # Replace any nil version segemnts with 0      
+      v.collect! { |x| x.nil? ? 0 : x } 
+
+      self.version = v
+    end
+
+
+
     # Create the file to contain the version information
     #
     def create_version_file
@@ -157,6 +180,7 @@ module PNMG
       
       # If values isn't an array, convert to array by spliting on '.'
       values = values.split('.') unless values.kind_of? Array
+      values.collect { |x| x.present? ? x : 0 }
       
       # Validate there are the correct number of parts to the version
       unless values.length.between?(2, 4)
@@ -198,6 +222,8 @@ module PNMG
 
 
     def hex_string?(value)
+      return false unless value.kind_of? String
+      return false if value.nil?
       !value.to_s[/\H/]
     end
 
