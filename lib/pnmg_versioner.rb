@@ -1,5 +1,4 @@
-require "pnmg_versioner/pnmg_version_manager"
-
+require "pnmg_versioner/versioner"
 
 module PnmgVersioner
 end
