@@ -26,17 +26,15 @@ module VersionTaskHelper
   # Display usage
   #
   def display_set_usage
-    puts "Usage: rake version:set[FORMATTED_VERSION]"
+    puts "Usage: rake version:set[VERSION]"
     puts ""
-    puts "FORMATTED_VERSION may be a STRING or ARRAY representation of the version"
+    puts "VERSION may be a STRING representation of the version"
     puts ""
     puts "Examples:"
     puts "    rake version:set[1.2.3.4]"
     puts "    rake version:set[1.aed23]"
-    puts "    rake version:set[1,2,4,5]"
     puts ""
-    puts "Version must include major and minor values."
-    puts "Patch number will default to 0"
+    puts "Version must include major and minor values.  Patch number will default to 0"
   end
 
 

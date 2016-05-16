@@ -32,7 +32,7 @@ namespace :version do
 
 
   desc "Display the current version"
-  task :show, [:version] => [:environment] do |t, args|
+  task :show => [:environment] do |t, args|
     puts ""
     puts "Application version is: #{PNMG::Versioner.version}"
   end
@@ -44,6 +44,11 @@ namespace :version do
     if args[:version].blank?
       VersionTaskHelper.display_set_usage
       next  #exit rake task
+    else
+      pvm = PNMG::Versioner.new
+      old_version = pvm.version
+      pvm.version = args[:version]
+      VersionTaskHelper.display_changed_version(old_version, pvm.version)
     end
   end
 
