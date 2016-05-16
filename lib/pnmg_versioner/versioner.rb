@@ -45,6 +45,14 @@ module PNMG
     #   PUBLIC METHODS
 
 
+
+    # Increment veresion segment specified by parameter
+    #
+    # @param  segment   [Symbol]  Version segment to bump up by 1.  Valid 
+    #                             symbols: [:major, :minor, :patch, :build]
+    #
+    # @raise  [ArguementError]    If segment symbols is not a valid value.
+    #
     def bump_version(segment)
       unless PNMG::Versioner::VERSION_SEGMENTS.keys.include? segment
         raise ArgumentError, "Segment #{segment.to_s} is not a valid segment"

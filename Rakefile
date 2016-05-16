@@ -32,3 +32,7 @@ end
 
 
 task default: :test
+
+
+# Expose rake tasks in Gem
+import "lib/tasks/version.rake"
