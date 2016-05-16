@@ -95,12 +95,3 @@ This file will be created and set to the default of `0.0.0.0` the first time one
 If Bugsnag is installed and configured, this rake task will execute a `Bugsnag:notify` rake task, automatically passing the bugsnag API key and the current version as parameters.
 
     rake version:notify_bugsnag
-
-## Proposed Future Features
-- Path independantance within project.
-- Force uppercase file suffixes for environment version files
-- Adding a config file to configure certain aspects
-  - valid environment labels
-  - files to ignore (w/ wildcards)
-  - default values for verbosity and backup switches
-  - etc
