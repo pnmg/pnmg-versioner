@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pnmg_versioner (0.0.1)
+    pnmg_versioner (0.5.0)
       rails (~> 4.2.5.1)
 
 GEM
