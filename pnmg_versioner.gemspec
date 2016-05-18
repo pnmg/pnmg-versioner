@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = PnmgVersioner::VERSION
   s.authors     = ["Dave Dankel"]
   s.email       = ["ddankel@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of PnmgVersioner."
-  s.description = "TODO: Description of PnmgVersioner."
+  s.homepage    = "http://pnmg.com"
+  s.summary     = "Rails Application version management."
+  s.description = "Rails Application version management."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
