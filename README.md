@@ -6,7 +6,7 @@ PNMG Version Manager stores a semantic version number within a rails project and
 
 Add the following to your project's Gemfile:
 
-    gem 'pnmg_presenter', bitbucket: 'pnmg/pnmg_presenter'
+    gem 'pnmg_presenter', git: 'https://bitbucket.org/pnmg/pnmg_presenter'
 
 Then install by running:
 
