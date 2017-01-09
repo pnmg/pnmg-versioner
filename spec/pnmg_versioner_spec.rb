@@ -180,17 +180,17 @@ describe PNMG::Versioner do
 
       pvm.version = "1.2.3.4"
 
-      pvm.bump_version(:major)
-      expect(pvm.version).to eq("2.2.3.4")
-
-      pvm.bump_version(:minor)
-      expect(pvm.version).to eq("2.3.3.4")
+      pvm.bump_version(:build)
+      expect(pvm.version).to eq("1.2.3.5")
 
       pvm.bump_version(:patch)
-      expect(pvm.version).to eq("2.3.4.4")
+      expect(pvm.version).to eq("1.2.4")
 
-      pvm.bump_version(:build)
-      expect(pvm.version).to eq("2.3.4.5")
+      pvm.bump_version(:minor)
+      expect(pvm.version).to eq("1.3")
+
+      pvm.bump_version(:major)
+      expect(pvm.version).to eq("2.0")
 
       expect { pvm.bump_version(:not_valid) }.to raise_error(ArgumentError)
 

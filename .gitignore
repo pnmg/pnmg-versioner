@@ -8,3 +8,5 @@ test/dummy/tmp/
 test/dummy/.sass-cache
 test/dummy/config/initializers/version.rb
 test/dummy/config/initializers/app_version.rb
+
+/*.gem

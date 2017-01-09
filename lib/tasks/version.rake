@@ -3,32 +3,36 @@ require 'task_helpers/version_task_helper'
 namespace :version do 
 
 
-  desc "Increment the app major version by 1"
-  task bump_major: :environment do |t, args| 
-    VersionTaskHelper.bump_version_with_feedback(:major)
+  namespace :bump do 
+
+    desc "Increment the app major version by 1"
+    task major: :environment do |t, args| 
+      VersionTaskHelper.bump_version_with_feedback(:major)
+    end
+  
+  
+  
+    desc "Increment the app minor version by 1"
+    task minor: :environment do |t, args|
+      VersionTaskHelper.bump_version_with_feedback(:minor)
+    end
+  
+  
+  
+    desc "Increment the app patch version by 1"
+    task patch: :environment do |t, args|
+      VersionTaskHelper.bump_version_with_feedback(:patch)
+    end
+  
+  
+  
+    desc "Increment the app build version by 1"
+    task build: :environment do |t, args|
+      VersionTaskHelper.bump_version_with_feedback(:build)
+    end
+  
+
   end
-
-
-
-  desc "Increment the app minor version by 1"
-  task bump_minor: :environment do |t, args|
-    VersionTaskHelper.bump_version_with_feedback(:minor)
-  end
-
-
-
-  desc "Increment the app patch version by 1"
-  task bump_patch: :environment do |t, args|
-    VersionTaskHelper.bump_version_with_feedback(:patch)
-  end
-
-
-
-  desc "Increment the app build version by 1"
-  task bump_build: :environment do |t, args|
-    VersionTaskHelper.bump_version_with_feedback(:build)
-  end
-
 
 
   desc "Display the current version"
