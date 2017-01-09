@@ -68,6 +68,12 @@ module PNMG
         v[VERSION_SEGMENTS[segment]] = v[VERSION_SEGMENTS[segment]].to_i + 1
       end
 
+      # delete any segments after the one being updated, keeping min 2 segments
+      v = v[0..VERSION_SEGMENTS[segment]]
+
+      # Add minor version number if blank
+      v[1] ||= 0  
+
       # Replace any nil version segemnts with 0      
       v.collect! { |x| x.nil? ? 0 : x } 
 
@@ -220,7 +226,6 @@ module PNMG
 
 
 
-
     def reload_version_file 
       warn_level = $VERBOSE
       $VERBOSE = nil
@@ -243,7 +248,14 @@ module PNMG
     end
 
 
-  end
 
 
-end
+
+
+
+
+
+  end #class
+
+
+end #module

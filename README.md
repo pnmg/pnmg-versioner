@@ -43,36 +43,36 @@ This file will be created and set to the default of `0.0.0.0` the first time one
     $ rake version:show   
     Application version is: 0.1.0
  
-    $ rake version:set[1.2]
+    $ rake version:set[1.0]
 
     Application version changed:
-      was: 1.0
-      now: 1.2
+      was: 0.1
+      now: 1.0
 
 ### Bump Version Segments
 
     $ rake version:show   
-    Application version is: 1.2
+    Application version is: 1.0
         
-    $ rake version:bump_build
+    $ rake version:bump:build
     
     Application version changed:
       was: 1.0
       now: 1.0.0.1
     
-    $ rake version:bump_patch
+    $ rake version:bump:patch
     
     Application version changed:
       was: 1.0.0.1
       now: 1.0.1.1
     
-    $ rake version:bump_minor
+    $ rake version:bump:minor
     
     Application version changed:
       was: 1.0.1.1
       now: 1.1.1.1
     
-    $ rake version:bump_major
+    $ rake version:bump:major
     
     Application version changed:
       was: 1.1.1.1
@@ -84,7 +84,7 @@ This file will be created and set to the default of `0.0.0.0` the first time one
       was: 2.1.1.1
       now: 1.0.ae234dc
 
-    $ rake version:bump_patch
+    $ rake version:bump:patch
 
     Application version changed:
       was: 1.0.ae234dc

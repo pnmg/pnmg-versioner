@@ -11,15 +11,14 @@ Gem::Specification.new do |s|
   s.email       = ["ddankel@gmail.com"]
   s.homepage    = "http://pnmg.com"
   s.summary     = "Rails Application version management."
-  s.description = "Rails Application version management."
+  s.description = "Rails Application version management.  For internal use only."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.5.1"
-
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails"
+  s.add_runtime_dependency 'rails', '~> 4.2', '>= 4.2.5.1'
+  s.add_development_dependency 'sqlite3', '~> 0'
+  s.add_development_dependency 'rspec-rails', '~> 0'
 
 end
