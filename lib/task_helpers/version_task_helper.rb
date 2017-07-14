@@ -6,19 +6,19 @@ module VersionTaskHelper
   # Bump version segment passed and provide feedback on change
   #
   def bump_version_with_feedback(segment)
-    pvm = PNMG::Versioner.new 
+    pvm = PNMG::Versioner.new
     old_version = pvm.version
-    pvm.bump_version(segment)    
+    pvm.bump_version(segment)
     display_changed_version(old_version, pvm.version)
   end
 
 
   # Display changed version message
   #
-  def display_changed_version (old_version, new_version)
+  def display_changed_version(old_version, new_version)
     puts ""
     puts "Application version changed:"
-    puts "  was: #{old_version}"    
+    puts "  was: #{old_version}"
     puts "  now: #{new_version}"
   end
 
